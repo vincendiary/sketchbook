@@ -1,0 +1,98 @@
+//Summative Prototype
+//Aether Defence by Vincent Nguyen
+
+ArrayList<Tower> towers = new ArrayList();
+ArrayList<Bullet> bullets = new ArrayList();
+ArrayList<Monster> monsters = new ArrayList();
+
+Game game;
+
+float mx, my;
+
+int state;
+
+void setup() {
+  fullScreen();
+  rectMode(CENTER);
+  textAlign(CENTER, CENTER);
+  state = 0;
+}
+
+void draw() {
+  background(30);
+
+  for (Tower t : towers) {
+    t.display();
+
+    if (monsters.size() > 0) {
+      bullets.add(new Bullet(t.getX(), t.getY(), 2, 60));
+    }
+  }
+
+  for (Bullet b : bullets) {
+    b.display();
+    b.target();
+    b.move();
+  }
+
+  for (Monster m : monsters) {
+    m.update();
+    m.display();
+    m.move();
+
+    mx = m.getX();
+    my = m.getY();
+  }
+
+  for (int i = 0; i < bullets.size(); i++) {
+
+    Bullet b = bullets.get(i);
+
+    if ( !b.status() ) {
+      bullets.remove(i);
+    }
+  }
+  
+  for (int j = 0; j < monsters.size(); j++) {
+
+    Monster m = monsters.get(j);
+
+    if ( !m.status() ) {
+      monsters.remove(j);
+    }
+  }
+  
+  for (int i = 0; i < bullets.size(); i++) {
+    for (int j = 0; j < monsters.size(); j++) {
+
+      Bullet b = bullets.get(i);
+      Monster m = monsters.get(j);
+
+      if ( b.getX() >= m.getX() - (m.getW()/2) && b.getX() <= m.getX() + (m.getW()/2) && b.getY() >= m.getY() - (m.getH()/2) && b.getY() <= m.getY() + (m.getH()/2) ) {
+
+        if ( b.status() && m.status() ) {
+          m.hit( b.damage() );
+          b.die();
+        }
+      }
+    }
+  }
+  
+}
+
+void mousePressed() {
+  if (state == 0) {
+    towers.add(new Tower(mouseX, mouseY, int(random(4))));
+  } else if (state == 1) {
+    monsters.add(new Monster(mouseX, mouseY, int(random(3) ) ) );
+  }
+  
+}
+
+void keyPressed() {
+  if (key == 't') {
+    state = 0;
+  } else if (key == 'm') {
+    state = 1;
+  }
+}
