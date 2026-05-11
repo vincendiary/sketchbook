@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { getContext } from 'svelte';
 	import ThemeSwitch from '$lib/components/ThemeSwitch/ThemeSwitch.svelte';
@@ -19,20 +20,20 @@
 <header class="sticky top-0 z-10 flex items-center justify-between border-b border-(--rule) bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] px-8 py-4 backdrop-blur-xl">
 	<div class="flex items-center gap-2">
 		<span class="relative inline-block h-[18px] w-[18px] bg-(--ink) text-[0px] after:absolute after:inset-1 after:bg-(--accent)"></span>
-		<a class="text-sm font-semibold tracking-[-0.01em] text-(--ink) no-underline" href="/">Sketchbook</a>
+		<a class="text-sm font-semibold tracking-[-0.01em] text-(--ink) no-underline" href={resolve('/')}>Sketchbook</a>
 	</div>
 	<nav class="flex items-center gap-1">
 		<a
 			class={current === 'home'
 				? 'rounded bg-(--rule-soft) px-2.5 py-1.5 font-mono text-[11px] tracking-[0.02em] text-(--ink) no-underline transition-all duration-150'
 				: 'rounded px-2.5 py-1.5 font-mono text-[11px] tracking-[0.02em] text-(--ink-3) no-underline transition-all duration-150 hover:text-(--ink)'}
-			href="/"
+			href={resolve('/')}
 		>Index</a>
 		<a
 			class={current === 'tag'
 				? 'rounded bg-(--rule-soft) px-2.5 py-1.5 font-mono text-[11px] tracking-[0.02em] text-(--ink) no-underline transition-all duration-150'
 				: 'rounded px-2.5 py-1.5 font-mono text-[11px] tracking-[0.02em] text-(--ink-3) no-underline transition-all duration-150 hover:text-(--ink)'}
-			href="/tags/projects"
+			href={resolve('/tags/projects')}
 		>Tags</a>
 		<span
 			class={current === 'about'
