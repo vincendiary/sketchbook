@@ -37,7 +37,9 @@ jobs:
       - name: Svelte check
         run: pnpm check
 
-      - name: Build
+      - name: Build GitHub Pages site
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}
         run: pnpm build
 
   build-and-deploy:
@@ -68,7 +70,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
+      - name: Build GitHub Pages site
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}
         run: pnpm build
 
       - name: Publish build folder to deploy branch
