@@ -37,11 +37,11 @@ import ddf.minim.*;
 
 //Sets up the minim audioplayers
 Minim minim;
-AudioPlayer music, dun, fight, hit, battle, ping;
+AudioPlayer music, dun, fightSound, hit, battle, ping;
 
 //Sets up most of the variables
 PFont font; //Undertale font
-PImage title, toriel, papyrus, sans, undyne, alphys, lines, stats, slash; //Images including title, characters, backgrounds, etc.
+PImage titleImage, toriel, papyrus, sans, undyne, alphys, lines, stats, slash; //Images including title, characters, backgrounds, etc.
 PImage[] images; //Image array for the fight animation
 String menu, dialogue; //Strings used for what the current menu displayed should be and attack dialogue during the fight.
 int prevTime, currTime, frame; //prevTime and currTime are both used as timers. They are integers so they aren't super accurate but whatever ¯\_('u')_/¯. frame is used for the animation.
@@ -64,7 +64,7 @@ void load() { //Loads EVERYTHING
   font = loadFont("DeterminationSans-36.vlw"); //Undertale font
 
   //Images
-  title = loadImage("title.png"); //Undertale title in the intro
+  titleImage = loadImage("title.png"); //Undertale title in the intro
   lines = loadImage("lines.png"); //Fight scene background
   stats = loadImage("stats.png"); //Health bar & level for fight scene
   slash = loadImage("attack.png"); //Slash image for attacking in the fight scene
@@ -95,7 +95,7 @@ void load() { //Loads EVERYTHING
   
   music = minim.loadFile("menu.mp3"); //Main menu music
   dun = minim.loadFile("dun.mp3"); //Intro "Dun" noise
-  fight = minim.loadFile("spear.mp3"); //Fight music
+  fightSound = minim.loadFile("spear.mp3"); //Fight music
   hit = minim.loadFile("attack.mp3"); //When Undyne is hit in the fight scene
   battle = minim.loadFile("battle.mp3"); //When you engage in a fight (fight button)
   ping = minim.loadFile("ping.mp3"); //Button select sound
@@ -103,7 +103,7 @@ void load() { //Loads EVERYTHING
   //Setting the gain for the audio
   music.setGain(-14);
   dun.setGain(0);
-  fight.setGain(-14);
+  fightSound.setGain(-14);
   hit.setGain(4);
   battle.setGain(0);
   ping.setGain(-4); //All of this is to ensure our ears aren't destroyed when you run the program
@@ -145,7 +145,7 @@ void audio() { //Music time!
   } else if (menu == "Main" || menu == "Info") { //Otherwise, if it's the main menu or info menu...
 
     dun.pause(); //Pause the "DUN" in case the player is a quickshot and sped through the intro
-    fight.pause(); //Pause the fight music in case they've just returned from an intense battle
+    fightSound.pause(); //Pause the fight music in case they've just returned from an intense battle
 
     if (music.isPlaying() != true) { //Check if the music is playing or not (to prevent infinite loops)
       music.pause(); //If it's not playing, pause...
@@ -158,12 +158,12 @@ void audio() { //Music time!
 
     music.pause(); //Pause the main menu music
 
-    if (fight.isPlaying() != true) { //Same check as before. We don't want infinite rewinds.
-      fight.pause(); //Pause if it's not playing and...
-      fight.rewind(); //Rewind!
+    if (fightSound.isPlaying() != true) { //Same check as before. We don't want infinite rewinds.
+      fightSound.pause(); //Pause if it's not playing and...
+      fightSound.rewind(); //Rewind!
     }
 
-    fight.play(); //Play the intense fight music!
+    fightSound.play(); //Play the intense fight music!
   }
 }
 
@@ -208,7 +208,7 @@ void title() { //It just draws the title image. Oh and the text at the bottom to
 
   //"UNDERTALE" image
   imageMode(CENTER);
-  image(title,width/2, height/2, width/3*2, height/5);
+  image(titleImage,width/2, height/2, width/3*2, height/5);
   
   //Code for the text/timer
   currTime = second(); //Uses the computer's clock to match seconds

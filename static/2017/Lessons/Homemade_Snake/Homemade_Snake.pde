@@ -1,6 +1,6 @@
 PVector p, v, f;
 float w, h;
-int food, score;
+int foodState, scoreValue;
 boolean gameover;
 
 void setup() {
@@ -12,7 +12,7 @@ void setup() {
   v = new PVector(0, 0);
   f = new PVector(width/3, height/3);
   w = h = 15;
-  food = 0;
+  foodState = 0;
   gameover = false;
 }
 
@@ -28,7 +28,7 @@ void draw() {
     background(#FF1A35);
     fill(0);
     textSize(36);
-    text("You lose!\nFinal score: " + score, width/2, height/2);
+    text("You lose!\nFinal score: " + scoreValue, width/2, height/2);
   }
 }
 
@@ -43,7 +43,7 @@ void score() {
   noStroke();
   fill(255);
   textSize(16);
-  text("score: " + score, width/2, height/6);
+  text("score: " + scoreValue, width/2, height/6);
 }
 
 void snake() {
@@ -59,14 +59,14 @@ void snake() {
 
 void food() {
   if (p.x == f.x && p.y == f.y) {
-    score += 1;
-    food = 0;
+    scoreValue += 1;
+    foodState = 0;
   }
 
-  if (food == 0) {
+  if (foodState == 0) {
     f.x = ((int(random(1, 26))*15) + 5);
     f.y = ((int(random(1, 26))*15) + 5);
-    food = 1;
+    foodState = 1;
   }
 
   fill(#FF005E);

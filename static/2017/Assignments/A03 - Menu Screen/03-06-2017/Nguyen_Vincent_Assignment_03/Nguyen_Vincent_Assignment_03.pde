@@ -1,10 +1,10 @@
 import ddf.minim.*;
 
 Minim minim;
-AudioPlayer music, dun, fight, hit;
+AudioPlayer music, dun, fightSound, hit;
 
 PFont font;
-PImage title, toriel, papyrus, sans, undyne, alphys, lines, stats, slash;
+PImage titleImage, toriel, papyrus, sans, undyne, alphys, lines, stats, slash;
 color white, orange, yellow;
 String menu, attack;
 int prevTime, currTime;
@@ -25,7 +25,7 @@ void load() {
   font = loadFont("DeterminationSans-36.vlw");
 
   //Images
-  title = loadImage("title.png");
+  titleImage = loadImage("title.png");
   toriel = loadImage("toriel.png");
   papyrus = loadImage("papyrus.png");
   sans = loadImage("sans.png");
@@ -44,7 +44,7 @@ void load() {
   minim = new Minim(this);
   music = minim.loadFile("menu.mp3");
   dun = minim.loadFile("dun.mp3");
-  fight = minim.loadFile("spear.mp3");
+  fightSound = minim.loadFile("spear.mp3");
   hit = minim.loadFile("attack.mp3");
 
   menu = "Intro";
@@ -285,7 +285,7 @@ boolean clickedRect(float x, float y, float w, float h) {
 
 void title(float x, float y, float w, float h) {
   imageMode(CENTER);
-  image(title, x, y, w, h);
+  image(titleImage, x, y, w, h);
 
   currTime = second();
 
@@ -309,7 +309,7 @@ void audio() {
   //Setting the gain
   music.setGain(-12);
   dun.setGain(4);
-  fight.setGain(-12);
+  fightSound.setGain(-12);
   hit.setGain(-8);
 
   if (menu == "Intro") {
@@ -319,7 +319,7 @@ void audio() {
   } else if (menu == "Main" || menu == "Info") {
 
     dun.pause();
-    fight.pause();
+    fightSound.pause();
 
     if (music.isPlaying() != true) {
       music.pause();
@@ -331,11 +331,11 @@ void audio() {
 
     music.pause();
 
-    if (fight.isPlaying() != true) {
-      fight.pause();
-      fight.rewind();
+    if (fightSound.isPlaying() != true) {
+      fightSound.pause();
+      fightSound.rewind();
     }
 
-    fight.play();
+    fightSound.play();
   }
 }

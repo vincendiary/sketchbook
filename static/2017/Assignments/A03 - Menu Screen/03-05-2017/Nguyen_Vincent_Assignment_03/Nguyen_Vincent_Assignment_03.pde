@@ -7,13 +7,13 @@ Minim minim;
 AudioPlayer music, dun;
 
 PFont font;
-PImage title;
+PImage titleImage;
 String menu;
 
 void setup() {
   size(800, 600);
   font = loadFont("DeterminationSans-36.vlw");
-  title = loadImage("title.png");
+  titleImage = loadImage("title.png");
   minim = new Minim(this);
   music = minim.loadFile("menu.mp3");
   menu = "intro";
@@ -67,7 +67,7 @@ boolean rolloverRect(float x, float y, float w, float h) {
 
 void title(float x, float y, float w, float h) {
   imageMode(CENTER);
-  image(title, x, y, w, h);
+  image(titleImage, x, y, w, h);
 }
 
 void audio() {

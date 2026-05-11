@@ -23,7 +23,7 @@ void setup() {
 void draw() {
   
   //runs the opacity function constantly
-  opacity(); //this changes the opacity between 50-100 to simulate that cool shit
+  updateOpacity(); //this changes the opacity between 50-100 to simulate that cool shit
   
   image(backdrop, width/2, height/2, width, height);
   image(title, width/6*5, height/8*7);
@@ -31,7 +31,7 @@ void draw() {
   button("Play Single Player", width/2, 600, 300, 50); //vincent's patented button function
 }
 
-void opacity() {
+void updateOpacity() {
   
   //opacity = opacity + speed
   opacity += speed;

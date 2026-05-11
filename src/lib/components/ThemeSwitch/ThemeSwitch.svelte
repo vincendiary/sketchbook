@@ -16,7 +16,7 @@
 </script>
 
 <button
-	class="ts"
+	class="group inline-block cursor-pointer appearance-none rounded-full border border-transparent bg-transparent p-0 outline-none [--ts-bg-dark:#1a1f3a] [--ts-bg-light:#f5d77a] [--ts-h:28px] [--ts-icon-moon:#c4c8e0] [--ts-icon-sun:#b8801a] [--ts-pad:3px] [--ts-thumb:calc(var(--ts-h)-var(--ts-pad)*2)] [--ts-thumb-dark:#e7e9f5] [--ts-thumb-light:#fff8e6] [--ts-travel:calc(var(--ts-w)-var(--ts-thumb)-var(--ts-pad)*2)] [--ts-w:56px] focus-visible:shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent,#ff5b1f)_35%,transparent)]"
 	type="button"
 	role="switch"
 	aria-checked={value === 'dark'}
@@ -24,163 +24,15 @@
 	data-state={value}
 	onclick={toggle}
 >
-	<span class="ts-track" aria-hidden="true">
-		<span class="ts-icon ts-icon--sun"><SunIcon /></span>
-		<span class="ts-icon ts-icon--moon"><MoonIcon /></span>
-		<span class="ts-thumb">
-			<span class="ts-thumb-icon ts-thumb-icon--sun"><SunIcon /></span>
-			<span class="ts-thumb-icon ts-thumb-icon--moon"><MoonIcon /></span>
+	<span
+		class="relative block h-(--ts-h) w-(--ts-w) overflow-hidden rounded-full bg-(--ts-bg-dark) shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),inset_0_1px_2px_rgba(0,0,0,0.4)] transition-[background,box-shadow] duration-[480ms] ease-in-out group-data-[state=light]:bg-(--ts-bg-light) group-data-[state=light]:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06),inset_0_1px_2px_rgba(0,0,0,0.08)] motion-reduce:duration-0"
+		aria-hidden="true"
+	>
+		<span class="pointer-events-none absolute top-1/2 left-[7px] grid h-3.5 w-3.5 -translate-y-1/2 place-items-center text-sm text-(--ts-icon-sun) opacity-55 transition-[opacity,color] duration-[480ms] ease-in-out group-data-[state=light]:opacity-0 motion-reduce:duration-0"><SunIcon /></span>
+		<span class="pointer-events-none absolute top-1/2 right-[7px] grid h-3.5 w-3.5 -translate-y-1/2 place-items-center text-sm text-(--ts-icon-moon) opacity-55 transition-[opacity,color] duration-[480ms] ease-in-out group-data-[state=dark]:opacity-0 motion-reduce:duration-0"><MoonIcon /></span>
+		<span class="absolute top-(--ts-pad) left-(--ts-pad) grid h-(--ts-thumb) w-(--ts-thumb) translate-x-(--ts-travel) place-items-center rounded-full bg-(--ts-thumb-dark) shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_8px_rgba(0,0,0,0.18)] transition-[transform,background,box-shadow] duration-[480ms] ease-[cubic-bezier(0.68,-0.2,0.27,1.4)] group-data-[state=light]:translate-x-0 group-data-[state=light]:bg-(--ts-thumb-light) group-data-[state=light]:shadow-[0_1px_2px_rgba(0,0,0,0.12),0_4px_8px_rgba(0,0,0,0.08)] motion-reduce:duration-0">
+			<span class="absolute grid h-4 w-4 place-items-center text-base text-(--ts-icon-sun) opacity-100 transition-[opacity,transform] duration-[480ms] ease-in-out group-data-[state=dark]:-rotate-90 group-data-[state=dark]:scale-60 group-data-[state=dark]:opacity-0 group-data-[state=light]:rotate-0 group-data-[state=light]:scale-100 group-data-[state=light]:opacity-100 motion-reduce:duration-0"><SunIcon /></span>
+			<span class="absolute grid h-4 w-4 place-items-center text-base text-[#4a5078] opacity-100 transition-[opacity,transform] duration-[480ms] ease-in-out group-data-[state=dark]:rotate-0 group-data-[state=dark]:scale-100 group-data-[state=dark]:opacity-100 group-data-[state=light]:rotate-90 group-data-[state=light]:scale-60 group-data-[state=light]:opacity-0 motion-reduce:duration-0"><MoonIcon /></span>
 		</span>
 	</span>
 </button>
-
-<style>
-	.ts {
-		--ts-w: 56px;
-		--ts-h: 28px;
-		--ts-pad: 3px;
-		--ts-thumb: calc(var(--ts-h) - var(--ts-pad) * 2);
-		--ts-travel: calc(var(--ts-w) - var(--ts-thumb) - var(--ts-pad) * 2);
-
-		--ts-bg-light: #f5d77a;
-		--ts-bg-dark: #1a1f3a;
-		--ts-thumb-light: #fff8e6;
-		--ts-thumb-dark: #e7e9f5;
-		--ts-icon-sun: #b8801a;
-		--ts-icon-moon: #c4c8e0;
-
-		appearance: none;
-		border: 1px solid transparent;
-		padding: 0;
-		background: none;
-		cursor: pointer;
-		display: inline-block;
-		border-radius: 999px;
-		outline: none;
-	}
-	.ts:focus-visible {
-		box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #ff5b1f) 35%, transparent);
-	}
-
-	.ts-track {
-		position: relative;
-		display: block;
-		width: var(--ts-w);
-		height: var(--ts-h);
-		border-radius: 999px;
-		background: var(--ts-bg-dark);
-		transition:
-			background 480ms cubic-bezier(0.4, 0, 0.2, 1),
-			box-shadow 480ms ease;
-		box-shadow:
-			inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-			inset 0 1px 2px rgba(0, 0, 0, 0.4);
-		overflow: hidden;
-	}
-	.ts[data-state='light'] .ts-track {
-		background: var(--ts-bg-light);
-		box-shadow:
-			inset 0 0 0 1px rgba(0, 0, 0, 0.06),
-			inset 0 1px 2px rgba(0, 0, 0, 0.08);
-	}
-
-	.ts-icon {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		display: grid;
-		place-items: center;
-		width: 14px;
-		height: 14px;
-		font-size: 14px;
-		opacity: 0.55;
-		transition:
-			opacity 360ms ease,
-			color 480ms ease;
-		pointer-events: none;
-	}
-	.ts-icon--sun {
-		left: 7px;
-		color: var(--ts-icon-sun);
-	}
-	.ts-icon--moon {
-		right: 7px;
-		color: var(--ts-icon-moon);
-	}
-	.ts[data-state='light'] .ts-icon--sun {
-		opacity: 0;
-	}
-	.ts[data-state='dark'] .ts-icon--moon {
-		opacity: 0;
-	}
-
-	.ts-thumb {
-		position: absolute;
-		top: var(--ts-pad);
-		left: var(--ts-pad);
-		width: var(--ts-thumb);
-		height: var(--ts-thumb);
-		border-radius: 50%;
-		background: var(--ts-thumb-dark);
-		transform: translateX(var(--ts-travel));
-		transition:
-			transform 480ms cubic-bezier(0.68, -0.2, 0.27, 1.4),
-			background 480ms ease,
-			box-shadow 480ms ease;
-		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.3),
-			0 4px 8px rgba(0, 0, 0, 0.18);
-		display: grid;
-		place-items: center;
-	}
-	.ts[data-state='light'] .ts-thumb {
-		transform: translateX(0);
-		background: var(--ts-thumb-light);
-		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.12),
-			0 4px 8px rgba(0, 0, 0, 0.08);
-	}
-
-	.ts-thumb-icon {
-		position: absolute;
-		display: grid;
-		place-items: center;
-		width: 16px;
-		height: 16px;
-		font-size: 16px;
-		transition:
-			opacity 320ms ease,
-			transform 480ms cubic-bezier(0.4, 0, 0.2, 1);
-	}
-	.ts-thumb-icon--sun {
-		color: var(--ts-icon-sun);
-	}
-	.ts-thumb-icon--moon {
-		color: #4a5078;
-	}
-	.ts[data-state='dark'] .ts-thumb-icon--sun {
-		opacity: 0;
-		transform: rotate(-90deg) scale(0.6);
-	}
-	.ts[data-state='light'] .ts-thumb-icon--moon {
-		opacity: 0;
-		transform: rotate(90deg) scale(0.6);
-	}
-	.ts[data-state='light'] .ts-thumb-icon--sun {
-		opacity: 1;
-		transform: rotate(0) scale(1);
-	}
-	.ts[data-state='dark'] .ts-thumb-icon--moon {
-		opacity: 1;
-		transform: rotate(0) scale(1);
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.ts-track,
-		.ts-thumb,
-		.ts-icon,
-		.ts-thumb-icon {
-			transition-duration: 0ms;
-		}
-	}
-</style>

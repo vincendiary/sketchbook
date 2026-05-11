@@ -13,11 +13,11 @@ void setup() {
 }
 
 void draw() {
-  float f = function(mouseX);
+  float f = calculateY(mouseX);
   strokeWeight(5);
   point(mouseX,f);
 }
 
-float function(float x) {
+float calculateY(float x) {
   return (1/(x-width/2))*500+200;
 }

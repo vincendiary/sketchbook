@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { SKETCHES, TAGS, TAG_DESCRIPTIONS, type Tag } from '$lib/sketches';
+import { SKETCHES, TAGS, TAG_DESCRIPTIONS, type Tag } from '$lib/data/sketches';
 
 export const prerender = true;
 
