@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { base, resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { getContext } from 'svelte';
 	import ThemeSwitch from '$lib/components/ThemeSwitch/ThemeSwitch.svelte';
@@ -11,8 +11,10 @@
 	const theme = getContext<ThemeContext>(THEME_CONTEXT_KEY);
 
 	function inferActive(path: string): 'home' | 'tag' | 'about' {
-		if (path.startsWith('/tags')) return 'tag';
-		if (path.startsWith('/about')) return 'about';
+		const routePath = base && path === base ? '/' : base && path.startsWith(`${base}/`) ? path.slice(base.length) : path;
+
+		if (routePath.startsWith('/tags')) return 'tag';
+		if (routePath.startsWith('/about')) return 'about';
 		return 'home';
 	}
 </script>
